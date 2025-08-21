@@ -1,7 +1,8 @@
 import { NotFoundError } from '@shared/errors/app-error';
+
+import { IFindUserPostsRepository } from 'src/modules/posts/interfaces/db/find-user-posts';
 import { IPost } from 'src/modules/posts/models/Post';
 import { IFindUserByIdRepository } from '../interfaces/db/find-user-by-id';
-import { IFindUserPostsRepository } from '../interfaces/db/find-user-posts';
 import { IFindUserPosts } from '../interfaces/usecases/find-user-posts';
 
 export class DbFindUserPosts implements IFindUserPosts {

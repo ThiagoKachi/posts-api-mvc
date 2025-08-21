@@ -6,6 +6,7 @@ import express from 'express';
 import { rateLimit } from 'express-rate-limit';
 import helmet from 'helmet';
 import { Pool } from 'pg';
+import postRoutes from 'src/modules/posts/routes/post.routes';
 import userRoutes from 'src/modules/users/routes/user.routes';
 
 export const app = express();
@@ -22,6 +23,7 @@ app.use(rateLimit({
 }));
 
 app.use('/api', userRoutes);
+app.use('/api', postRoutes);
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
