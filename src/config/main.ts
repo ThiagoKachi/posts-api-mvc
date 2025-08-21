@@ -6,8 +6,10 @@ import express from 'express';
 import { rateLimit } from 'express-rate-limit';
 import helmet from 'helmet';
 import { Pool } from 'pg';
+import openapiSpec from 'src/docs/openapi';
 import postRoutes from 'src/modules/posts/routes/post.routes';
 import userRoutes from 'src/modules/users/routes/user.routes';
+import swaggerUi from 'swagger-ui-express';
 
 export const app = express();
 
@@ -24,6 +26,13 @@ app.use(rateLimit({
 
 app.use('/api', userRoutes);
 app.use('/api', postRoutes);
+
+// Swagger UI e JSON
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiSpec));
+app.get('/docs.json', (_req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(openapiSpec);
+});
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
